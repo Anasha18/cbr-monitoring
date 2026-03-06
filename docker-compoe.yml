@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16alpine
+    container_name: cbr-monitoring-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cbr-monitoring
+      POSTGRES_USER: cbr-monitoring
+      POSTGRES_PASSWORD: cbr-monitoring
+    ports:
+      - '6543:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/main/resources/db/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql
+
+volumes:
+  postgres_data:
