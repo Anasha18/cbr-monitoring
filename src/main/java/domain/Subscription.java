@@ -21,9 +21,6 @@ public class Subscription {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
     @Column(name = "last_notified_at", nullable = false)
     private LocalDateTime lastNotifiedAt;
 

@@ -19,14 +19,11 @@ public class Conversion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "amount", nullable = false, precision = 10, scale = 4)
+    @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "result_amount", nullable = false, precision = 10, scale = 4)
+    @Column(name = "result_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal resultAmount;
-
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

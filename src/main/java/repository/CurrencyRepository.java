@@ -1,14 +1,16 @@
 package repository;
 
-import configuration.TxManager;
+import configuration.TransactionSessionManager;
 import domain.Currency;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class CurrencyRepository {
-    public final TxManager txManager;
+    public final TransactionSessionManager manager;
 
     public void save(Currency currency) {
-        txManager.inTx(session -> session.persist(currency));
+        manager.inTx(session -> session.persist(currency));
     }
 }
