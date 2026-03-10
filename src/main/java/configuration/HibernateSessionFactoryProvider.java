@@ -1,5 +1,6 @@
 package configuration;
 
+import domain.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -19,9 +20,9 @@ public class HibernateSessionFactoryProvider {
         settings.put("hibernate.connection.url", config.getDbConfig().dbUrl());
         settings.put("hibernate.connection.username", config.getDbConfig().dbUsername());
         settings.put("hibernate.connection.password", config.getDbConfig().dbPassword());
-        settings.put("hibernate.dialect", config.getHibernateConfig().hibernateDialect());
-        settings.put("hibernate.show_sql", Boolean.toString(config.getHibernateConfig().hibernateShowSql()));
-        settings.put("hibernate.hbm2ddl.auto", config.getHibernateConfig().hibernateHbm2Ddl());
+        settings.put("hibernate.dialect", config.getHibernateConfig().dialect());
+        settings.put("hibernate.show_sql", Boolean.toString(config.getHibernateConfig().showSql()));
+        settings.put("hibernate.hbm2ddl.auto", config.getHibernateConfig().hbm2ddlAuto());
 
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .applySettings(settings)
@@ -29,6 +30,10 @@ public class HibernateSessionFactoryProvider {
 
         try {
             return new MetadataSources(registry)
+                    .addAnnotatedClass(Currency.class)
+                    .addAnnotatedClass(ExchangeRate.class)
+                    .addAnnotatedClass(Subscription.class)
+                    .addAnnotatedClass(User.class)
                     .buildMetadata()
                     .buildSessionFactory();
         } catch (Exception e) {

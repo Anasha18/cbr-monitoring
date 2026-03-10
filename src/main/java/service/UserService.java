@@ -18,7 +18,10 @@ public class UserService {
     }
 
     public User findByTelegramId(Long telegramId) {
-        return userRepository.findByTelegramId(telegramId).orElseThrow(() -> new RuntimeException("User with id " + telegramId + " not found"));
+        return userRepository.findByTelegramId(telegramId).orElseThrow(() -> {
+            log.atError().addKeyValue("telegramId", telegramId).log("User with telegramId not found");
+            return new RuntimeException("User with telegramId " + telegramId + " not found");
+        });
     }
 
     public void save(User user) {

@@ -19,7 +19,7 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", nullable = false, length = 5, unique = true)
+    @Column(name = "code", nullable = false, length = 3, unique = true)
     private String code;
 
     @Column(name = "name", nullable = false, length = 50)
@@ -27,7 +27,4 @@ public class Currency {
 
     @Column(name = "value", nullable = false, precision = 10, scale = 2)
     private BigDecimal value;
-
-    @Column(name = "previous_value", nullable = false, precision = 10, scale = 2)
-    private BigDecimal previousValue;
 }

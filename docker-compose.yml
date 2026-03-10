@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:16alpine
+    image: postgres:16-alpine
     container_name: cbr-monitoring-postgres
     restart: unless-stopped
     environment:

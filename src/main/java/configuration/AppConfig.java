@@ -32,7 +32,7 @@ public class AppConfig {
     public static AppConfig load() {
         Properties prop = new Properties();
 
-        try (InputStream in = AppConfig.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = AppConfig.class.getClassLoader().getResourceAsStream("application.properties")) {
             if (in != null) prop.load(in);
         } catch (IOException e) {
             throw new RuntimeException("Can't initialize project. " + e);
@@ -50,14 +50,13 @@ public class AppConfig {
         DbConfig dbConfig = new DbConfig(
                 prop.getProperty("db.url"),
                 prop.getProperty("db.username"),
-                prop.getProperty("db.password"),
-                prop.getProperty("db.driver-class-name")
+                prop.getProperty("db.password")
         );
 
         HibernateConfig hibernateConfig = new HibernateConfig(
-                Boolean.parseBoolean(prop.getProperty("hibernate.show-sql")),
+                prop.getProperty("hibernate.hbm2ddl.auto"),
                 prop.getProperty("hibernate.dialect"),
-                prop.getProperty("hibernate.hbm2ddl.auto")
+                Boolean.parseBoolean(prop.getProperty("hibernate.show-sql"))
         );
 
 

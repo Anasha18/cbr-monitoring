@@ -13,4 +13,6 @@ public class CurrencyRepository {
     public void save(Currency currency) {
         manager.inTx(session -> session.persist(currency));
     }
+
+
 }

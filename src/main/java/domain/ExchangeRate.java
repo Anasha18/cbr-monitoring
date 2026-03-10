@@ -19,8 +19,8 @@ public class ExchangeRate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rate", nullable = false, precision = 10, scale = 2)
-    private BigDecimal rate;
+    @Column(name = "value", nullable = false, precision = 10, scale = 2)
+    private BigDecimal value;
 
     @Column(name = "rate_date", nullable = false)
     private LocalDateTime rateDate;
