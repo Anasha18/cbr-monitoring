@@ -21,7 +21,7 @@ public class Subscription {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @Column(name = "last_notified_at", nullable = false)
+    @Column(name = "last_notified_at")
     private LocalDateTime lastNotifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

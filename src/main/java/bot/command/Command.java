@@ -1,5 +1,5 @@
 package bot.command;
 
 public interface Command {
-    String execute(String... args);
+    String execute(Long telegramId, String... args);
 }

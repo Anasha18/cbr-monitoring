@@ -31,7 +31,7 @@ public class CbrMonitoringBot extends TelegramLongPollingBot {
 
         try {
             CommandResolver.CommandResult result = commandResolver.resolve(text);
-            String response = result.command().execute(result.args());
+            String response = result.command().execute(chatId, result.args());
 
             sendMessage(chatId, response);
         } catch (CommandNotFoundException e) {
@@ -52,7 +52,7 @@ public class CbrMonitoringBot extends TelegramLongPollingBot {
         return config.getTelegramConfig().telegramBotToken();
     }
 
-    private void sendMessage(
+    public void sendMessage(
             Long chatId,
             String text
     ) {

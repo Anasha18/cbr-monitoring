@@ -1,22 +1,24 @@
 package bot;
 
-import bot.command.Command;
-import bot.command.StarCommand;
-import bot.command.SubscriptionCommand;
+import bot.command.*;
 import bot.exception.CommandNotFoundException;
-import bot.command.CurrencyCommand;
-import integration.CbrHttpClient;
+import service.CurrencyService;
+import service.SubscriptionService;
 
 import java.util.Map;
 
 public class CommandResolver {
     private final Map<String, Command> commands;
 
-    public CommandResolver(CbrHttpClient httpClient) {
+    public CommandResolver(
+            CurrencyService currencyService,
+            SubscriptionService subscriptionService
+    ) {
         this.commands = Map.of(
                 "/start", new StarCommand(),
-                "/currency", new CurrencyCommand(httpClient),
-                "/subscription", new SubscriptionCommand()
+                "/currency", new CurrencyCommand(currencyService),
+                "/subscribe", new SubscribeCommand(subscriptionService),
+                "/unsubscribe", new UnsubscribeCommand(subscriptionService)
         );
     }
 

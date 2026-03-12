@@ -1,15 +1,15 @@
 package bot.command;
 
-import integration.CbrHttpClient;
 import integration.dto.CurrencyResponse;
 import lombok.RequiredArgsConstructor;
+import service.CurrencyService;
 
 @RequiredArgsConstructor
 public class CurrencyCommand implements Command {
-    private final CbrHttpClient httpClient;
+    private final CurrencyService currencyService;
 
     @Override
-    public String execute(String... args) {
+    public String execute(Long telegramId, String... args) {
         String query = String.join(" ", args).trim();
 
         if (query.isEmpty()) {
@@ -19,23 +19,11 @@ public class CurrencyCommand implements Command {
                     """;
         }
 
-        CurrencyResponse response = httpClient.getCurrencies();
+        CurrencyResponse.CBRCurrencyData found = currencyService.getCurrencyByCodeFromApi(query);
 
-        var currencies = response.Valute().values();
-
-       var found = currencies.stream()
-                .filter(c -> c.CharCode().equalsIgnoreCase(query)
-                        || c.Name().toLowerCase().contains(query.toLowerCase()))
-                .findFirst();
-
-
-        return found.map(c -> String.format(
-                "Курс %s (%s): %.4f руб.",
-                c.CharCode(),
-                c.Name(),
-                c.Value()
-        )).orElse("Валюта не найдена. Попробуй указать код (USD, EUR) или часть названия.");
+        return String.format("Курс %s (%s): %.2f руб.",
+                found.CharCode(),
+                found.Name(),
+                found.Value());
     }
-
-
 }

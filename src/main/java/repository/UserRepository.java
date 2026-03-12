@@ -16,12 +16,6 @@ public class UserRepository {
         manager.inTx(session -> session.persist(user));
     }
 
-    public Optional<User> findById(int id) {
-        return Optional.ofNullable(manager.inSession(session -> {
-            return session.find(User.class, id);
-        }));
-    }
-
     public Optional<User> findByTelegramId(Long telegramId) {
         return Optional.ofNullable(manager.inSession(session -> {
             return session.createQuery("from User where telegramId = :telegramId", User.class)
